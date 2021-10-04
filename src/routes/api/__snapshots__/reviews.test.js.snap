@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Review API routes GET /api/books/:bookId/reviews result corresponds to existing reviews body matches snapshot 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "bookId": 3,
+        "comment": null,
+        "userId": null,
+      },
+      "id": "3",
+      "type": "reviews",
+    },
+  ],
+}
+`;
+
+exports[`Review API routes GET /api/books/:bookId/reviews/:id when passed id corresponds to an existing review body matches snapshot 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "bookId": 1,
+      "comment": null,
+      "userId": null,
+    },
+    "id": "1",
+    "type": "reviews",
+  },
+}
+`;
+
+exports[`Review API routes POST /api/books/:bookId/reviews review data is valid response body matches snapshot 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "bookId": 2,
+      "comment": "Que malo el libro, estaba fome porque se murió el tipo",
+      "userId": 1,
+    },
+    "id": "2",
+    "type": "reviews",
+  },
+}
+`;
+
+exports[`Review API routes POST /api/books/:bookId/reviews/:reviewId/likes review data is valid body matches snapshot 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "reviewId": 7,
+      "userId": 1,
+    },
+    "id": "2",
+    "type": "likes",
+  },
+}
+`;
+
+exports[`Review API routes POST /api/books/:bookId/reviews/:reviewId/reports report data is valid body matches snapshot 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "content": "no es tan lento",
+      "reviewId": 8,
+      "userId": 1,
+    },
+    "id": "1",
+    "type": "reports",
+  },
+}
+`;

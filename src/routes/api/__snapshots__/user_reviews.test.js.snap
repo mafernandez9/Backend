@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User review API routes GET /api/users/:userId/liked_reviews result corresponds to existing likes body matches snapshot 1`] = `
+Object {
+  "data": Array [],
+}
+`;
+
+exports[`User review API routes GET /api/users/:userId/reviews result corresponds to existing reviews body matches snapshot 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "bookId": null,
+        "comment": null,
+        "userId": 2,
+      },
+      "id": "1",
+      "type": "reviews",
+    },
+  ],
+}
+`;

@@ -1,0 +1,1160 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Este archivo corresponde a la documentación de la página N°1 de Libros en Chile y el mundo: Bookkers",
+    "version": "1.14.0",
+    "title": "Bookkers",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "patorres8@uc.cl / mafernandez9@uc.cl / mpbascunan@uc.cl"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+
+  "servers": [
+    {
+      "url":"swagger.io",
+      "description": "Development server"
+    }
+  ],
+  "host": "catfaceapi.herokuapp.com",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Todo acerca de usuarios"
+    },
+    {
+      "name": "book",
+      "description": "Todo acerca de libros de usuarios"
+    },
+    {
+      "name": "admin",
+      "description": "Todo acerca de los permisos de administrador"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Crea un nuevo usuario para ser parte de Bookkers",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Elementos que necesita un usuario para ser creado en Bookkers",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Se crea satisfactoriamente el usuario!"
+          },
+          "400": {
+            "description": "No se crea el usuario ya que los datos no son válidos"
+          }
+        }
+      }
+    },
+    "/users/": {  
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Muestra a todos los usuarios de Bookkers",
+        "description": "",
+        "operationId": "showUsers",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa"
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post":{
+        "tags":[
+          "user"
+        ],
+        "summary": "Iniciar sesión con un usuario creado de Bookers",
+        "description": "Sirve para iniciar sesión en Bookers",
+        "operationId": "idSession",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+          "name": "email",
+          "in": "body",
+          "description": "Elementos que necesita un usuario para ser creado en Bookkers",
+          "type": "string",
+          "required": true
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "Elementos que necesita un usuario para ser creado en Bookkers",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se ha iniciado sesión"
+          },
+          "400": {
+            "description": "No se han colocado de forma correcta los datos"
+          },
+          "401": {
+            "description": "La contraseña no es correcta"
+          },
+          "404": {
+            "description": "No existe un user con ese mail"
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Muestra la id de un usuario que ha iniciado sesión",
+        "description": "",
+        "operationId": "showselfUser",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa"
+          },
+          "401": {
+            "description": "No has iniciado sesión"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Muestra al un usuario con una id específica de Bookkers",
+        "description": "Muestra al usuario pedido",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "id del usuario a buscar",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se muestra al usuario que se busca"
+          },
+          "404": {
+            "description": "El usuario que buscas no existe"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Edita a un usuario con una id específica de Bookkers",
+        "description": "Se edita un usuario específico",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "id del usuario que se quiere cambiar",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Elementos que necesita un usuario para ser creado en Bookkers",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+          }
+        }
+        ],
+        "responses": {
+          "201": {
+            "description": "Se edita correctamente!"
+          },
+          "400":{
+            "description": "Los datos no son válidos. Intentalo nuevamente más tarde"
+          },
+          "401":{
+            "description": "No has iniciado sesión"
+          },
+          "403": {
+            "description": "No se pudo editar, ya que no tienes los permisos para realizar esta acción"
+          },
+          "404": {
+            "description": "Este usuario no existe"
+          }
+        }
+      }
+    },
+    "/users/{userId}/reviews": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Muestra las reviews de un usuari@ en específico",
+        "description": "",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id de el/la usuari@ al cual se le quieren revisar las reviews",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se ven las reviews!"
+          },
+          "404": {
+            "description": "Este usuario no existe"
+          }
+        }
+      }
+    },
+    "/users/{userId}/liked_reviews": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Muestra las reviews a las que les ha dado like un usuario de Bookkers",
+        "description": "",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id del usuari@ al cual se le quiere ver los likes",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se ven los likes!"
+          },
+          "404": {
+            "description": "Este usuario no existe"
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Obtener colección de libros",
+        "description": "",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "Aquí aparecen los libros de Bookkers!"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Crear un libro con un ISBN único",
+        "description": "",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Elementos necesarios para poder crear un libro en Bookkers",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Se crea satisfactoriamente un libro!"
+          },
+          "400": {
+            "description": "Los datos no son correctos para agregarlos a Bookkers"
+          },
+          "401": {
+            "description": "No has iniciado sesión"
+          }
+        }
+      }
+    },
+    "/books/{bookId}": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Obtener detalle de un libro",
+        "description": "",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "query",
+            "description": "Id del libro al cual se quiere acceder",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se encuentra correctamente el libro!"
+            },
+          "404": {
+            "description": "El libro no existe"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Editar la información de un libro",
+        "description": "Para editar un libro de Bookkers",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro que se quiere editar",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Elementos que necesita un usuario para ser creado en Bookkers",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+          }
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se edita correctamente el libro"
+          },
+          "400": {
+            "description": "Los datos para editar no son válidos. Intentalo nuevamente"
+          },
+          "401": {
+            "description": "No has iniciado sesión"
+          },
+          "403": {
+            "description": "No tienes permisos para hacer esto"
+          },
+          "404": {
+            "description": "Este libro no existe"
+          }
+        }
+      }
+    },
+    "/books/{bookId}/reviews": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Obtener colección de reseñas de un libro",
+        "description": "Sirve para obtener todas las reseñas de un libro",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+              "name": "bookId",
+              "in": "path",
+              "description": "id del libro del cual se quieren obtener las reseñas",
+              "required": true,
+              "type": "integer",
+              "maximum": 10,
+              "minimum": 1,
+              "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se encontraron las reseñas"
+          },
+          "404": {
+            "description": "Este libro no existe"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Crear reseña de un libro",
+        "description": "Sirve para crear una reseña de un libro",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro que se quiere editar",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Elementos que necesita una reseña para ser creada en Bookkers",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Review"
+          }
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se creó correctamente la reseña!"
+          },
+          "400": {
+            "description": "Los datos no son válidos"
+          },
+          "401": {
+            "description": "No has iniciado sesión"
+          },
+          "404": {
+            "description": "Este libro no existe"
+          }
+        }
+      }
+    },
+    "/books/{bookId}/reviews/{reviewId}": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Obtener detalle de una reseña",
+        "description": "Sirve para obtener el detalle de una reseña en particular",
+        "operationId": "bookId",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro donde se busca la review",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "description": "id de la review que se quiere obtener",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se encontró correctamente la review"
+          },
+          "404": {
+            "description": "El libro o la review no existen"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Editar reseña de un libro",
+        "description": "Sirve para editar la reseña de un libro",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro donde se quiere editar la review",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "description": "id del review que se quiere editar",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Elementos que necesita una reseña para ser creada en Bookkers",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Review"
+          }
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se editó correctamente!"
+          },
+          "400": {
+            "description": "Los datos no son correctos para editar una reseña"
+          },
+          "401": {
+            "description": "No has iniciado sesión"
+          },
+          "403":{
+            "description": "No tienes permiso para realizar esta acción"
+          },
+          "404": {
+            "description": "El libro o la reseña no existen"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Eliminar reseña de un libro",
+        "description": "Sirve para eliminar la reseña de un libro",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro donde se quiere eliminar la review",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "description": "id del review que se quiere eliminar",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se elimina correctamente!"
+          },
+          "401": {
+            "description": "No has iniciado sesión"
+          },
+          "403": {
+            "description": "No se tienen los permisos para realizar esto"
+          },
+          "404": {
+            "description": "El libro o la reseña no existen"
+          }
+        }
+      }
+    },
+    "/books/{bookId}/reviews/{reviewId}/likes": {
+      "post": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Agregar like a reseña de un libro",
+        "description": "Sirve para agregar un like a una reseña",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro donde se quiere colocar like de la review",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "description": "id del review al cual se le quiere dar like",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Se agrega correctamente el Like!"
+          },
+          "400": {
+            "description": "Los datos no son válidos"
+          },
+          "401":{
+            "description": "No has iniciado sesión"
+          },
+          "404": {
+            "description": "El libro o la reseña no existen"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Eliminar like a reseña de un libro",
+        "description": "Sirve para eliminar likes puestos en una reseña",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro donde se quiere eliminar like de la review",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "description": "id del review al cual se le quiere eliminar un like",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se eliminó el like correctamente"
+          },
+          "401":{
+            "description": "No has iniciado sesión"
+          },
+          "403": {
+            "description": "No se tienen los permisos para realizar esto"
+          }
+        }
+      }
+    },
+    "/books/{bookId}/reviews/{reviewId}/reports": {
+      "post": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Crear reporte (denuncia) de una reseña",
+        "description": "Sirve para denunciar una reseña en particular",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro donde se quiere colocar report de la review",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "description": "id del review al cual se le quiere reportar",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Elementos que necesita una reseña para ser creada en Bookkers",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Report"
+          }
+        }
+        ],
+        "responses": {
+          "201": {
+            "description": "Se reportó correctamente la review!"
+          },
+          "400": {
+            "description": "Los datos son inválidos"
+          },
+          "401":{
+            "description": "No has iniciado sesión"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Obtener reportes (denuncias) de una reseña",
+        "description": "Sirve para obtener las denuncias de una reseña en particular",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro donde se quiere revisar los reportes de la review",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "description": "id del review al cual se le quiere revisar los reportes",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se muestran correctamente los reportes de esta review!"
+          },
+          "401":{
+            "description": "No has iniciado sesión"
+          },
+          "403": {
+            "description": "No se tienen los permisos para ver los reportes"
+          }
+        }
+      }
+    },
+    "/admin/books/{bookId}": {
+      "delete": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Eliminar libro",
+        "description": "Con permisos de administrador, sirve para eliminar libros",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "id del libro que se quiere eliminar",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se elimina correctamente!"
+          },
+          "401":{
+            "description": "No has iniciado sesión"
+          },
+          "403":{
+            "description":"No tienes permiso para realizar esto"
+          },
+          "404":{
+            "description": "Este libro no existe"
+          }
+        }
+      }
+    },
+    "/admin/users/{userId}": {
+      "delete": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Eliminar usuario",
+        "description": "Con permisos de administrador, sirve para eliminar usuarios",
+        "operationId": "userId",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "id del usuario que se quiere eliminar",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se elimina correctamente el usuario!"
+          },
+          "401":{
+            "description": "No has iniciado sesión"
+          },
+          "403": {
+            "description": "No se tienen los permisos para realizar esto"
+          },
+          "404":{
+            "description": "Este usuario no existe"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+      "firstName",
+      "lastName",
+      "birthDay",
+      "nickname",
+      "email",
+      "password",
+      "image",
+      "role"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthDay": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Book": {
+      "type": "object",
+      "required": [
+        "title",
+        "description",
+        "userId",
+        "image"
+        ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Book"
+      }
+    },
+    "Review": {
+      "type": "object",
+      "required": [
+        "comment",
+        "userId",
+        "bookId"
+        ],
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "integer"
+        },
+        "bookId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "Review"
+      }
+    },
+    "Like": {
+      "type": "object",
+      "required": [
+        "userId",
+        "reviewId"
+        ],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "reviewId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "Like"
+      }
+    },
+    "Report": {
+      "type": "object",
+      "required": [
+        "userId",
+        "reviewId",
+        "content"
+        ],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "reviewId": {
+          "type": "integer"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Report"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
